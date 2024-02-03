@@ -33,7 +33,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		class	UInputAction* InputMove;
 
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Possessions")
+		class TSubclassOf<ACharacter> PossessedCharecter;
 private:
 	UPROPERTY(VisibleAnywhere)
 		class UFloatingPawnMovement* FloatingPawnMovement;

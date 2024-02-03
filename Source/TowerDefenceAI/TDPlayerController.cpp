@@ -24,3 +24,20 @@ void ATDPlayerController::BeginPlay()
 }
 	}
 
+void ATDPlayerController::SwapToCharacter()
+{
+	
+	if (PossessedCharacter)
+	{
+		
+		ACharacter* NewCharacter = GetWorld()->SpawnActor<ACharacter>(PossessedCharacter, SpawnLocation, SpawnRotation);
+
+		
+		if (NewCharacter)
+		{
+			
+			Possess(NewCharacter);
+		}
+	}
+}
+

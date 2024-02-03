@@ -4,6 +4,7 @@
 #include "CameraPawn.h"
 #include "InputMappingContext.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "MainCharacter.h"
 #include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
@@ -58,3 +59,6 @@ void ACameraPawn::CameraMove(const FInputActionValue& Value)
 		AddMovementInput(RightVector, Direction.X);
 	}
 }
+
+
+	

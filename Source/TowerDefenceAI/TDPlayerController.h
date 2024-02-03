@@ -23,4 +23,11 @@ public:
 
 private:
 	ACameraPawn* CameraPawn;
+
+
+protected:
+	TSubclassOf<ACharacter> PossessedCharacter;
+
+public:
+	void SwapToCharacter();
 };
