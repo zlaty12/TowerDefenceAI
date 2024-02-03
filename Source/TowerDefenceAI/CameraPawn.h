@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "InputActionValue.h"
 #include "CameraPawn.generated.h"
 
 UCLASS()
@@ -26,4 +27,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
+	class UInputMappingContext* MappingContextCamera;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		class	UInputAction* InputMove;
+
+
+private:
+	UPROPERTY(VisibleAnywhere)
+		class UFloatingPawnMovement* FloatingPawnMovement;
+
+	void CameraMove(const FInputActionValue& Value);
+
+	
 };

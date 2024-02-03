@@ -2,12 +2,17 @@
 
 
 #include "CameraPawn.h"
+#include "InputMappingContext.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "EnhancedInput/Public/EnhancedInputComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
 ACameraPawn::ACameraPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	FloatingPawnMovement = CreateDefaultSubobject <UFloatingPawnMovement>(TEXT("Floating Pawn Movment Component"));
 
 }
 
@@ -30,5 +35,26 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* Input = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		Input->BindAction(InputMove, ETriggerEvent::Triggered, this, &ACameraPawn::CameraMove);
+	}
 }
 
+void ACameraPawn::CameraMove(const FInputActionValue& Value)
+{
+
+	const FVector2D Direction = Value.Get<FVector2D>();
+
+	if (Controller)
+	{
+
+		FRotator CurrentRotation = RootComponent->GetComponentRotation();
+		FVector ForwardVector = UKismetMathLibrary::GetForwardVector(FRotator(0, CurrentRotation.Yaw, 0));
+		FVector RightVector = UKismetMathLibrary::GetRightVector(FRotator(0, CurrentRotation.Yaw, 0));
+
+
+		AddMovementInput(ForwardVector, Direction.Y);
+		AddMovementInput(RightVector, Direction.X);
+	}
+}

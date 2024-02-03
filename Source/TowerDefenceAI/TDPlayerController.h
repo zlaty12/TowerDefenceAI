@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include"CameraPawn.h"
 #include "GameFramework/PlayerController.h"
 #include "TDPlayerController.generated.h"
 
@@ -14,4 +15,12 @@ class TOWERDEFENCEAI_API ATDPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	
+
+public:
+	virtual void BeginPlay() override;
+
+private:
+	ACameraPawn* CameraPawn;
 };
