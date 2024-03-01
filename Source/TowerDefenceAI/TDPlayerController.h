@@ -28,6 +28,5 @@ private:
 protected:
 	TSubclassOf<ACharacter> PossessedCharacter;
 
-public:
-	void SwapToCharacter();
+
 };
