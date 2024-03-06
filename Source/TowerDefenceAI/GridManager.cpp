@@ -1,52 +1,65 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "DrawDebugHelpers.h"
-#include "GridManager.h"
 
+#include "GridManager.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AGridManager::AGridManager()
-{
-    // Enable ticking
-    PrimaryActorTick.bCanEverTick = true;
 
-    // Initialize default values
-    SizeX = 10;
-    SizeY = 10;
-    CellSize = 100.0f;
-}
+    {
+        PrimaryActorTick.bCanEverTick = false;
 
-// Called when the game starts or when spawned
+        GridSize = 100.0f;
+        NumCells = 10;
+        GridThickness = 2.0f;
+        GridColor = FColor::White;
+    }
+
 void AGridManager::BeginPlay()
 {
     Super::BeginPlay();
-    InitializeGrid();
+    DrawGrid();
 }
 
-void AGridManager::Tick(float DeltaTime)
+bool AGridManager::GetSnapPosition(const FVector& WorldPosition, FVector& OutSnappedPosition) const
 {
-    Super::Tick(DeltaTime);
-
-
+    if (IsPositionWithinGrid(WorldPosition))
+    {
+        FVector SnappedPosition = WorldPosition;
+        SnappedPosition /= GridSize;
+        SnappedPosition = SnappedPosition.GridSnap(1.0f);
+        SnappedPosition *= GridSize;
+        OutSnappedPosition = SnappedPosition;
+        return true;
+    }
+    return false;
 }
 
-void  AGridManager::InitializeGrid()
+void AGridManager::DrawGrid()
 {
-    FVector Origin = GetActorLocation();
-    // Calculating the offset to move the grid's origin to the center
-    FVector Offset = FVector(SizeX * CellSize / 2.0f, SizeY * CellSize / 2.0f, 0);
+    FVector Center = GetActorLocation();
+    FVector Extent = FVector(NumCells * GridSize * 0.5f);
 
-    for (int32 x = 0; x <= SizeX; x++)
+    for (int32 i = 0; i <= NumCells; i++)
     {
-        FVector Start = Origin + FVector(x * CellSize, 0, 0) - Offset;
-        FVector End = Start + FVector(0, SizeY * CellSize, 0);
-        DrawDebugLine(GetWorld(), Start, End, FColor::White, true);
-    }
+        float XOffset = i * GridSize - Extent.X;
+        FVector Start = Center + FVector(XOffset, -Extent.Y, 0.0f);
+        FVector End = Center + FVector(XOffset, Extent.Y, 0.0f);
+        DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
 
-    for (int32 y = 0; y <= SizeY; y++)
-    {
-        FVector Start = Origin + FVector(0, y * CellSize, 0) - Offset;
-        FVector End = Start + FVector(SizeX * CellSize, 0, 0);
-        DrawDebugLine(GetWorld(), Start, End, FColor::White, true);
+        Start = Center + FVector(-Extent.X, XOffset, 0.0f);
+        End = Center + FVector(Extent.X, XOffset, 0.0f);
+        DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
     }
+}
+
+bool AGridManager::IsPositionWithinGrid(const FVector& Position) const
+{
+    FVector Center = GetActorLocation();
+    FVector Extent = FVector(NumCells * GridSize * 0.5f);
+    float Tolerance = GridSize * 0.1f;
+
+    return (Position.X >= Center.X - Extent.X - Tolerance && Position.X <= Center.X + Extent.X + Tolerance &&
+        Position.Y >= Center.Y - Extent.Y - Tolerance && Position.Y <= Center.Y + Extent.Y + Tolerance);
 }

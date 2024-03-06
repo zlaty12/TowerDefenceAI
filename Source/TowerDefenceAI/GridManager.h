@@ -3,42 +3,42 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "GridManager.generated.h"
 
 UCLASS()
-class TOWERDEFENCEAI_API AGridManager : public AActor
+class TOWERDEFENCEAI_API AGridManager : public APawn
 {
 	GENERATED_BODY()
-	
 
 public:
-    // Sets default values for this actor's properties
     AGridManager();
 
+    UFUNCTION(BlueprintCallable, Category = "Grid")
+    bool GetSnapPosition(const FVector& WorldPosition, FVector& OutSnappedPosition) const;
+
+   
+    
+   
+
+
+
 protected:
-    // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
-public:
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
-
-
-
 private:
- 
-private:
-    // Grid dimensions
-    UPROPERTY(EditAnywhere)
-    int32 SizeX;
-    UPROPERTY(EditAnywhere)
-    int32 SizeY;
+    UPROPERTY(EditAnywhere, Category = "Grid")
+    float GridSize;
 
-    // Grid cell size
-    UPROPERTY(EditAnywhere)
-    float CellSize;
+    UPROPERTY(EditAnywhere, Category = "Grid")
+    int32 NumCells;
 
-    // Function to initialize and visualize the grid
-    void InitializeGrid();
+    UPROPERTY(EditAnywhere, Category = "Grid")
+    float GridThickness;
+
+    UPROPERTY(EditAnywhere, Category = "Grid")
+    FColor GridColor;
+
+    void DrawGrid();
+    bool IsPositionWithinGrid(const FVector& Position) const;
 };
