@@ -26,11 +26,15 @@ bool AGridManager::GetSnapPosition(const FVector& WorldPosition, FVector& OutSna
 {
     if (IsPositionWithinGrid(WorldPosition))
     {
-        FVector SnappedPosition = WorldPosition;
-        SnappedPosition /= GridSize;
-        SnappedPosition = SnappedPosition.GridSnap(1.0f);
-        SnappedPosition *= GridSize;
-        OutSnappedPosition = SnappedPosition;
+        FVector GridPosition = WorldPosition - GetActorLocation();
+        FVector GridCoordinate = GridPosition / GridSize;
+
+        int32 SnapX = FMath::RoundToInt(GridCoordinate.X);
+        int32 SnapY = FMath::RoundToInt(GridCoordinate.Y);
+
+        FVector SnappedGridCoordinate(SnapX, SnapY, 0.0f);
+        OutSnappedPosition = GetActorLocation() + SnappedGridCoordinate * GridSize;
+
         return true;
     }
     return false;
