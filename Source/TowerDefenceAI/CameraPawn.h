@@ -30,11 +30,15 @@ public:
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
 	class UInputMappingContext* MappingContextCamera;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enhanced Input")
+	class UInputMappingContext* FPSCharecter;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		class	UInputAction* InputMove;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Possessions")
-		class TSubclassOf<ACharacter> PossessedCharecter;
+		UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		class	UInputAction* InputSwap;
+
+		void SwapMappingContext();
 private:
 	UPROPERTY(VisibleAnywhere)
 		class UFloatingPawnMovement* FloatingPawnMovement;

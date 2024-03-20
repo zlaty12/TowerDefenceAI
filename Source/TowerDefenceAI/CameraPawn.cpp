@@ -5,6 +5,7 @@
 #include "InputMappingContext.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "MainCharacter.h"
+#include "TDPlayerController.h"
 #include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
@@ -15,6 +16,7 @@ ACameraPawn::ACameraPawn()
 	PrimaryActorTick.bCanEverTick = true;
 	FloatingPawnMovement = CreateDefaultSubobject <UFloatingPawnMovement>(TEXT("Floating Pawn Movment Component"));
 
+	
 }
 
 // Called when the game starts or when spawned
@@ -39,6 +41,15 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	if (UEnhancedInputComponent* Input = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		Input->BindAction(InputMove, ETriggerEvent::Triggered, this, &ACameraPawn::CameraMove);
+		Input->BindAction(InputSwap, ETriggerEvent::Triggered, this, &ACameraPawn::SwapMappingContext);
+	}
+}
+
+void ACameraPawn::SwapMappingContext()
+{
+	if (ATDPlayerController* PlayerController = Cast<ATDPlayerController>(GetController()))
+	{
+		PlayerController->SwapMappingContext();
 	}
 }
 

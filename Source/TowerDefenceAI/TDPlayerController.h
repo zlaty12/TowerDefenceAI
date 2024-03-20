@@ -20,13 +20,12 @@ public:
 
 public:
 	virtual void BeginPlay() override;
-
+	void SwapMappingContext();
 private:
 	ACameraPawn* CameraPawn;
 
-
+	
 protected:
-	TSubclassOf<ACharacter> PossessedCharacter;
 
-
+	
 };
