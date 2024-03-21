@@ -55,6 +55,9 @@ void ATDPlayerController::SwapMappingContext()
             
         }
     }
+    bShowMouseCursor = false;
+    bEnableClickEvents = false;
+    bEnableMouseOverEvents = false;
 }
 
 
