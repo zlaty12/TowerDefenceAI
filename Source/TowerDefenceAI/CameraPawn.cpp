@@ -42,6 +42,7 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	{
 		Input->BindAction(InputMove, ETriggerEvent::Triggered, this, &ACameraPawn::CameraMove);
 		Input->BindAction(InputSwap, ETriggerEvent::Triggered, this, &ACameraPawn::SwapMappingContext);
+		Input->BindAction(InputPlaceBuilding, ETriggerEvent::Triggered, this, &ACameraPawn::PlaceOnClick);
 	}
 }
 
@@ -50,6 +51,14 @@ void ACameraPawn::SwapMappingContext()
 	if (ATDPlayerController* PlayerController = Cast<ATDPlayerController>(GetController()))
 	{
 		PlayerController->SwapMappingContext();
+	}
+}
+
+void ACameraPawn::PlaceOnClick()
+{
+	if (ATDPlayerController* PlayerController = Cast<ATDPlayerController>(GetController()))
+	{
+		PlayerController->OnClickPlace();
 	}
 }
 

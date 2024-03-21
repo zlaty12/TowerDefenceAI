@@ -6,6 +6,7 @@
 #include "InputMappingContext.h"
 #include "Kismet/GameplayStatics.h"
 #include "MainCharacter.h"
+#include "CursorActor.h"
 #include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
@@ -58,6 +59,14 @@ void ATDPlayerController::SwapMappingContext()
     bShowMouseCursor = false;
     bEnableClickEvents = false;
     bEnableMouseOverEvents = false;
+}
+
+void ATDPlayerController::OnClickPlace()
+{
+    if (ACursorActor* CursorActor = Cast<ACursorActor>(UGameplayStatics::GetActorOfClass(GetWorld(), ACursorActor::StaticClass())))
+    {
+        CursorActor->PlaceOnClick();
+    }
 }
 
 

@@ -15,6 +15,11 @@ class TOWERDEFENCEAI_API ACursorActor : public APawn
 public:
     ACursorActor();
 
+
+
+    UFUNCTION(BlueprintCallable, Category = "Cursor")
+    FVector GetCursorPosition() const;
+    void PlaceOnClick();
 protected:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaTime) override;

@@ -14,6 +14,21 @@ ACursorActor::ACursorActor()
     RootComponent = CursorMesh;
 }
 
+FVector ACursorActor::GetCursorPosition() const
+{
+    return GetActorLocation();
+}
+
+void ACursorActor::PlaceOnClick()
+{
+    if (GridManager)
+    {
+        GridManager->OnClick(GetActorLocation());
+    }
+}
+
+
+
 void ACursorActor::BeginPlay()
 {
     Super::BeginPlay();

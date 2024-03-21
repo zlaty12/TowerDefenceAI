@@ -21,6 +21,8 @@ public:
 public:
 	virtual void BeginPlay() override;
 	void SwapMappingContext();
+
+	void OnClickPlace();
 private:
 	ACameraPawn* CameraPawn;
 

@@ -38,7 +38,11 @@ public:
 		UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		class	UInputAction* InputSwap;
 
+		UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		class	UInputAction* InputPlaceBuilding;
+
 		void SwapMappingContext();
+		void PlaceOnClick();
 private:
 	UPROPERTY(VisibleAnywhere)
 		class UFloatingPawnMovement* FloatingPawnMovement;

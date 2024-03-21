@@ -67,3 +67,26 @@ bool AGridManager::IsPositionWithinGrid(const FVector& Position) const
     return (Position.X >= Center.X - Extent.X - Tolerance && Position.X <= Center.X + Extent.X + Tolerance &&
         Position.Y >= Center.Y - Extent.Y - Tolerance && Position.Y <= Center.Y + Extent.Y + Tolerance);
 }
+
+void AGridManager::OnClick(const FVector& CursorPosition)
+{
+    if (IsPositionWithinGrid(CursorPosition))
+    {
+        FVector SpawnLocation = CursorPosition;
+        FRotator SpawnRotation = FRotator::ZeroRotator;
+        AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(ActorClassToSpawn, SpawnLocation, SpawnRotation);
+
+        if (SpawnedActor)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Actor spawned successfully at location: %s"), *SpawnLocation.ToString());
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to spawn actor at location: %s"), *SpawnLocation.ToString());
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Clicked position is outside the grid boundaries."));
+    }
+}

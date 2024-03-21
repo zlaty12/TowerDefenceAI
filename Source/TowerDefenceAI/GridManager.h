@@ -17,11 +17,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Grid")
     bool GetSnapPosition(const FVector& WorldPosition, FVector& OutSnappedPosition) const;
 
-   
+    UFUNCTION(BlueprintCallable, Category = "Grid")
+    bool IsPositionWithinGrid(const FVector& Position) const;
     
-   
+    UFUNCTION(BlueprintCallable, Category = "Grid")
+    void OnClick(const FVector& CursorPosition);
 
-
+    UPROPERTY(EditAnywhere, Category = "Spawning")
+    TSubclassOf<AActor> ActorClassToSpawn;
 
 protected:
     virtual void BeginPlay() override;
@@ -40,5 +43,5 @@ private:
     FColor GridColor;
 
     void DrawGrid();
-    bool IsPositionWithinGrid(const FVector& Position) const;
+   
 };
