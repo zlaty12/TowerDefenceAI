@@ -3,6 +3,7 @@
 
 #include "GridManager.h"
 #include "DrawDebugHelpers.h"
+#include "GameFramework/Character.h"
 
 // Sets default values
 AGridManager::AGridManager()
@@ -74,7 +75,7 @@ void AGridManager::OnClick(const FVector& CursorPosition)
     {
         FVector SpawnLocation = CursorPosition;
         FRotator SpawnRotation = FRotator::ZeroRotator;
-        AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(ActorClassToSpawn, SpawnLocation, SpawnRotation);
+        ACharacter* SpawnedActor = GetWorld()->SpawnActor<ACharacter>(ActorClassToSpawn, SpawnLocation, SpawnRotation);
 
         if (SpawnedActor)
         {
