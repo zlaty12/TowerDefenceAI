@@ -26,6 +26,9 @@ public:
     UPROPERTY(EditAnywhere, Category = "Spawning")
     TSubclassOf<AActor> ActorClassToSpawn;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curancy")
+    float Curancy = 150.0f;
+
 protected:
     virtual void BeginPlay() override;
 
@@ -43,5 +46,6 @@ private:
     FColor GridColor;
 
     void DrawGrid();
+   
    
 };

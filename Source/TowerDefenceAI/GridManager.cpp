@@ -71,12 +71,14 @@ bool AGridManager::IsPositionWithinGrid(const FVector& Position) const
 
 void AGridManager::OnClick(const FVector& CursorPosition)
 {
-    if (IsPositionWithinGrid(CursorPosition))
+    if (IsPositionWithinGrid(CursorPosition) && Curancy >= 100.f)
     {
         FVector SpawnLocation = CursorPosition;
         FRotator SpawnRotation = FRotator::ZeroRotator;
+
         ACharacter* SpawnedActor = GetWorld()->SpawnActor<ACharacter>(ActorClassToSpawn, SpawnLocation, SpawnRotation);
 
+        Curancy -= 10.f;
         if (SpawnedActor)
         {
             UE_LOG(LogTemp, Warning, TEXT("Actor spawned successfully at location: %s"), *SpawnLocation.ToString());
