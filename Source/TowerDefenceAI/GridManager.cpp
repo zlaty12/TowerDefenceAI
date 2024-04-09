@@ -43,19 +43,24 @@ bool AGridManager::GetSnapPosition(const FVector& WorldPosition, FVector& OutSna
 
 void AGridManager::DrawGrid()
 {
-    FVector Center = GetActorLocation();
-    FVector Extent = FVector(NumCells * GridSize * 0.5f);
-
-    for (int32 i = 0; i <= NumCells; i++)
+    if (bLineIsVisable)
     {
-        float XOffset = i * GridSize - Extent.X;
-        FVector Start = Center + FVector(XOffset, -Extent.Y, 0.0f);
-        FVector End = Center + FVector(XOffset, Extent.Y, 0.0f);
-        DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
+        FVector Center = GetActorLocation();
+        FVector Extent = FVector(NumCells * GridSize * 0.5f);
 
-        Start = Center + FVector(-Extent.X, XOffset, 0.0f);
-        End = Center + FVector(Extent.X, XOffset, 0.0f);
-        DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
+        for (int32 i = 0; i <= NumCells; i++)
+        {
+            // Draw vertical lines
+            float XOffset = i * GridSize - Extent.X;
+            FVector Start = Center + FVector(XOffset, -Extent.Y, 0.0f);
+            FVector End = Center + FVector(XOffset, Extent.Y, 0.0f);
+            DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
+
+            // Draw horizontal lines
+            Start = Center + FVector(-Extent.X, XOffset, 0.0f);
+            End = Center + FVector(Extent.X, XOffset, 0.0f);
+            DrawDebugLine(GetWorld(), Start, End, GridColor, true, -1.0f, 0, GridThickness);
+        }
     }
 }
 

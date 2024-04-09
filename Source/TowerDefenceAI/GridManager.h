@@ -45,6 +45,9 @@ private:
     UPROPERTY(EditAnywhere, Category = "Grid")
     FColor GridColor;
 
+    UPROPERTY(EditAnywhere, Category = "Grid")
+    bool bLineIsVisable = true;
+
     void DrawGrid();
    
    
