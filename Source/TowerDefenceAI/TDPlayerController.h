@@ -21,8 +21,11 @@ public:
 public:
 	virtual void BeginPlay() override;
 	void SwapMappingContext();
-
+	void SwapToCamera();
 	void OnClickPlace();
+
+
+	bool bPlayerIsDead = false;
 private:
 	ACameraPawn* CameraPawn;
 

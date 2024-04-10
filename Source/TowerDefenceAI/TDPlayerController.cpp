@@ -36,7 +36,7 @@ void ATDPlayerController::BeginPlay()
 
 void ATDPlayerController::SwapMappingContext()
 {
-    if (CameraPawn)
+    if (CameraPawn && !bPlayerIsDead)
     {
         if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
         {
@@ -47,19 +47,49 @@ void ATDPlayerController::SwapMappingContext()
             if (CameraPawn->FPSCharecter)
             {
                 Subsystem->AddMappingContext(CameraPawn->FPSCharecter, 0);
-
                 if (AMainCharacter* MainCharacter = Cast<AMainCharacter>(UGameplayStatics::GetActorOfClass(GetWorld(), AMainCharacter::StaticClass())))
                 {
                     Possess(MainCharacter);
                 }
+                bShowMouseCursor = false;
+                bEnableClickEvents = false;
+                bEnableMouseOverEvents = false;
+
+               
             }
-            
+          
+               
+                   
         }
     }
-    bShowMouseCursor = false;
-    bEnableClickEvents = false;
-    bEnableMouseOverEvents = false;
+
+
+  
 }
+
+void ATDPlayerController::SwapToCamera()
+{
+    if (AMainCharacter* MainCharacter = Cast<AMainCharacter>(UGameplayStatics::GetActorOfClass(GetWorld(), AMainCharacter::StaticClass())))
+    {
+        if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+        {
+            Subsystem->RemoveMappingContext(CameraPawn->FPSCharecter);
+
+            if (CameraPawn->MappingContextCamera)
+            {
+                Subsystem->AddMappingContext(CameraPawn->MappingContextCamera, 0);
+                Possess(CameraPawn);
+            }
+        }
+        bShowMouseCursor = true;
+        bEnableClickEvents = true;
+        bEnableMouseOverEvents = true;
+    }
+
+}
+
+
+
 
 void ATDPlayerController::OnClickPlace()
 {
