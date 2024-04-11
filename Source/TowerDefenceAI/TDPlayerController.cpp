@@ -62,9 +62,6 @@ void ATDPlayerController::SwapMappingContext()
                    
         }
     }
-
-
-  
 }
 
 void ATDPlayerController::SwapToCamera()
