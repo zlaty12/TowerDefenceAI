@@ -76,7 +76,7 @@ bool AGridManager::IsPositionWithinGrid(const FVector& Position) const
 
 void AGridManager::OnClick(const FVector& CursorPosition)
 {
-    if (IsPositionWithinGrid(CursorPosition) && Curancy >= 100.f)
+    if (IsPositionWithinGrid(CursorPosition) && Curancy >= 10.f)
     {
         FVector SpawnLocation = CursorPosition;
         FRotator SpawnRotation = FRotator::ZeroRotator;
