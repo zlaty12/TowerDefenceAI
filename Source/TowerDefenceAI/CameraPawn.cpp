@@ -5,6 +5,7 @@
 #include "InputMappingContext.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "MainCharacter.h"
+#include "GridManager.h"
 #include "TDPlayerController.h"
 #include "EnhancedInput/Public/EnhancedInputComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -61,6 +62,8 @@ void ACameraPawn::PlaceOnClick()
 		PlayerController->OnClickPlace();
 	}
 }
+
+
 
 void ACameraPawn::CameraMove(const FInputActionValue& Value)
 {

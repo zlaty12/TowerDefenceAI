@@ -43,6 +43,9 @@ public:
 
 		void SwapMappingContext();
 		void PlaceOnClick();
+
+
+	
 private:
 	UPROPERTY(VisibleAnywhere)
 		class UFloatingPawnMovement* FloatingPawnMovement;
