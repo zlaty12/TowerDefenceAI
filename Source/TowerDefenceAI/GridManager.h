@@ -23,7 +23,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Grid")
     void OnClick(const FVector& CursorPosition);
 
-    UPROPERTY(EditAnywhere, Category = "Spawning")
+    UPROPERTY(BlueprintReadWrite,EditAnywhere, Category = "Spawning")
     TSubclassOf<AActor> ActorClassToSpawn;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curancy")
